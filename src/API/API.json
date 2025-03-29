@@ -1,0 +1,1224 @@
+{
+	"info": {
+		"_postman_id": "4ac138cf-0a0b-49b8-9563-1b3e07ef144e",
+		"name": "mega-project-nodejs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31897925"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fullName",
+									"value": "Muhammad Tariq",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/C:/Users/Muham/Downloads/IMG_0853.JPEG"
+								},
+								{
+									"key": "coverImage",
+									"type": "file",
+									"src": "/C:/Users/Muham/Desktop/pic2.png"
+								},
+								{
+									"key": "email",
+									"value": "mucoder@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "muhcoder",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BaseApi}}/users/register",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"muhcoder\",\r\n    \"password\": \"muhcoder\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseApi}}/users/login",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BaseApi}}/users/logout",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"users",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmUzZWQxM2U4YzdiZDlkZDRmNDI5OTYiLCJpYXQiOjE3MjYyOTIyMTIsImV4cCI6MTcyNzE1NjIxMn0.EXpKRP6wC6Qkwjh3KNodgUY0U9HS6fdiYjmDSVDj23w\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseApi}}/users/refresh-token",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"users",
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"oldPassword\": \"123456\",\r\n    \"newPassword\": \"muhcoder\",\r\n    \"confirmPassword\": \"muhcoder\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseApi}}/users/change-password",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"users",
+								"change-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCurrentUser",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseApi}}/users/get-user",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"users",
+								"get-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Account Detail",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BaseApi}}/users/update-account-detail",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"users",
+								"update-account-detail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Avatar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/C:/Users/Muham/Desktop/pic1.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BaseApi}}/users/update-avatar",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"users",
+								"update-avatar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Cover Image",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "coverImage",
+									"type": "file",
+									"src": "/C:/Users/Muham/Downloads/Untitled design.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BaseApi}}/users/update-cover-image",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"users",
+								"update-cover-image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Channel Profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseApi}}/users/get-user-channel-profile?username=muhcoder",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"users",
+								"get-user-channel-profile"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "muhcoder"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Watch History",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseApi}}/users/get-watch-history",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"users",
+								"get-watch-history"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Videos",
+			"item": [
+				{
+					"name": "Add Video",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Testing",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "testing",
+									"type": "text"
+								},
+								{
+									"key": "videoFile",
+									"type": "file",
+									"src": "/C:/Users/Muham/Downloads/2024-08-18 15-50-53.mp4"
+								},
+								{
+									"key": "thumbnail",
+									"type": "file",
+									"src": "/C:/Users/Muham/Downloads/pexels-iriser-1122639.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BaseApi}}/videos/add-video",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"videos",
+								"add-video"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Video Status",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BaseApi}}/videos/change-video-status?videoId=66e5d0bf581ecf9f761a0be8",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"videos",
+								"change-video-status"
+							],
+							"query": [
+								{
+									"key": "videoId",
+									"value": "66e5d0bf581ecf9f761a0be8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Videos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseApi}}/videos/get-all-videos",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"videos",
+								"get-all-videos"
+							],
+							"query": [
+								{
+									"key": "searchTerm",
+									"value": "abc",
+									"description": "search by title",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Video",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseApi}}/videos/get-single-video?videoId=66e5bea5c8c3c8e2e3de85bf",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"videos",
+								"get-single-video"
+							],
+							"query": [
+								{
+									"key": "videoId",
+									"value": "66e5bea5c8c3c8e2e3de85bf"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Video",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Muhammad Videoss",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Muhammad Videoss",
+									"type": "text"
+								},
+								{
+									"key": "videoFile",
+									"type": "file",
+									"src": "/C:/Users/Muham/Downloads/2024-08-18 15-50-53.mp4"
+								},
+								{
+									"key": "thumbnail",
+									"type": "file",
+									"src": "/C:/Users/Muham/Downloads/freepik-export-20240725043741MAhY (1).png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BaseApi}}/videos/update-video?videoId=66e5bea5c8c3c8e2e3de85bf",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"videos",
+								"update-video"
+							],
+							"query": [
+								{
+									"key": "videoId",
+									"value": "66e5bea5c8c3c8e2e3de85bf"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Video",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BaseApi}}/videos//delete-video?videoId=66e5bea5c8c3c8e2e3de85bf",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"videos",
+								"",
+								"delete-video"
+							],
+							"query": [
+								{
+									"key": "videoId",
+									"value": "66e5bea5c8c3c8e2e3de85bf"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dashboard",
+			"item": [
+				{
+					"name": "Channel Stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseApi}}/dashboard/get-channel-stats?userId=66e3ed13e8c7bd9dd4f42996",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"dashboard",
+								"get-channel-stats"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "66e3ed13e8c7bd9dd4f42996"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Channel Videos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseApi}}/dashboard/get-channel-videos",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"dashboard",
+								"get-channel-videos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comments",
+			"item": [
+				{
+					"name": "Add Comments",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"added third comment\",\r\n    \"userId\": \"66e3ed13e8c7bd9dd4f42996\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseApi}}/comments/add?videoId=66e5d0bf581ecf9f761a0be8",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"comments",
+								"add"
+							],
+							"query": [
+								{
+									"key": "videoId",
+									"value": "66e5d0bf581ecf9f761a0be8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Comments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseApi}}/comments/get-all?videoId=66e5d0bf581ecf9f761a0be8",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"comments",
+								"get-all"
+							],
+							"query": [
+								{
+									"key": "videoId",
+									"value": "66e5d0bf581ecf9f761a0be8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Comment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"commentId\": \"66e6c44bf90a0895c6f9d22a\",\r\n    \"content\": \"Hi Baby How are u\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseApi}}/comments/update",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"comments",
+								"update"
+							],
+							"query": [
+								{
+									"key": "commentId",
+									"value": "abs",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Comment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BaseApi}}/comments/delete?commentId=66e6c6a713e1bce010814edc",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"comments",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "commentId",
+									"value": "66e6c6a713e1bce010814edc"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Like",
+			"item": [
+				{
+					"name": "Like Video",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BaseApi}}/like/video?videoId=66e5d0bf581ecf9f761a0be8",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"like",
+								"video"
+							],
+							"query": [
+								{
+									"key": "videoId",
+									"value": "66e5d0bf581ecf9f761a0be8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Like Comment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BaseApi}}/like/comment?commentId=66e6c44bf90a0895c6f9d22a",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"like",
+								"comment"
+							],
+							"query": [
+								{
+									"key": "commentId",
+									"value": "66e6c44bf90a0895c6f9d22a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Like Tweet",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BaseApi}}/like/tweet?tweetId",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"like",
+								"tweet"
+							],
+							"query": [
+								{
+									"key": "tweetId",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Liked Videos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseApi}}/like/get-liked-videos",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"like",
+								"get-liked-videos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Playlist",
+			"item": [
+				{
+					"name": "Create Playlist",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Mein Tera Hero\",\r\n    \"description\": \"hnjii\",\r\n    \"videoId\": \"66e5d0bf581ecf9f761a0be8\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseApi}}/playlist/create",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"playlist",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Playlists",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseApi}}/playlist/get-all?userId=66e3ed13e8c7bd9dd4f42996",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"playlist",
+								"get-all"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "66e3ed13e8c7bd9dd4f42996"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Playlist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseApi}}/playlist/get-single?playlistId=66e6ec8d65ead75020558b90",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"playlist",
+								"get-single"
+							],
+							"query": [
+								{
+									"key": "playlistId",
+									"value": "66e6ec8d65ead75020558b90"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Playlist Info",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Updated Playlist Name\",\r\n    \"description\": \"Updated Playlist Name\",\r\n    \"playlistId\": \"66e6ec8d65ead75020558b90\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseApi}}/playlist/update",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"playlist",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Playlist",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BaseApi}}/playlist/delete?playlistId=66e6eaa8e854d19087dc38c2",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"playlist",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "playlistId",
+									"value": "66e6eaa8e854d19087dc38c2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Video",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BaseApi}}/playlist/add-video?videoId=66e6b2df8792a75a049544e7&playlistId=66e6ec8d65ead75020558b90",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"playlist",
+								"add-video"
+							],
+							"query": [
+								{
+									"key": "videoId",
+									"value": "66e6b2df8792a75a049544e7"
+								},
+								{
+									"key": "playlistId",
+									"value": "66e6ec8d65ead75020558b90"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Video",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BaseApi}}/playlist/delete-video?videoId=66e6b2df8792a75a049544e7&playlistId=66e6ec8d65ead75020558b90",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"playlist",
+								"delete-video"
+							],
+							"query": [
+								{
+									"key": "videoId",
+									"value": "66e6b2df8792a75a049544e7"
+								},
+								{
+									"key": "playlistId",
+									"value": "66e6ec8d65ead75020558b90"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Subscription",
+			"item": [
+				{
+					"name": "toggleSubscribe",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BaseApi}}/subscription/toggle-subscribe?channelId=66e3ed13e8c7bd9dd4f42996",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"subscription",
+								"toggle-subscribe"
+							],
+							"query": [
+								{
+									"key": "channelId",
+									"value": "66e3ed13e8c7bd9dd4f42996"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Channel Subscriber",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseApi}}/subscription/get-channel-subscriber?subscriberId=66e3ed13e8c7bd9dd4f42996",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"subscription",
+								"get-channel-subscriber"
+							],
+							"query": [
+								{
+									"key": "subscriberId",
+									"value": "66e3ed13e8c7bd9dd4f42996"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Subscribed Channel",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseApi}}/subscription/get-subscribed-channels?channelId=66e3ed13e8c7bd9dd4f42996",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"subscription",
+								"get-subscribed-channels"
+							],
+							"query": [
+								{
+									"key": "channelId",
+									"value": "66e3ed13e8c7bd9dd4f42996"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tweet",
+			"item": [
+				{
+					"name": "Create Tweet",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"Hi My name is Muhammad Tariq\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseApi}}/tweet/create-tweet",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"tweet",
+								"create-tweet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Tweet",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"Hi My name is Muhammad B Tariq\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseApi}}/tweet/update-tweet?tweetId=66e925e756151062612e84bd",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"tweet",
+								"update-tweet"
+							],
+							"query": [
+								{
+									"key": "tweetId",
+									"value": "66e925e756151062612e84bd"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Tweet",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"Hi My name is Muhammad B Tariq\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseApi}}/tweet/get-user-tweet?userId=66e3ed13e8c7bd9dd4f42996",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"tweet",
+								"get-user-tweet"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "66e3ed13e8c7bd9dd4f42996"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Tweet",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"Hi My name is Muhammad B Tariq\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseApi}}/tweet/delete-tweet?tweetId=66e925cf56151062612e84b3",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"tweet",
+								"delete-tweet"
+							],
+							"query": [
+								{
+									"key": "tweetId",
+									"value": "66e925cf56151062612e84b3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "HealthCheck",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseApi}}/healthcheck",
+							"host": [
+								"{{BaseApi}}"
+							],
+							"path": [
+								"healthcheck"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BaseApi",
+			"value": "dev-api-tubetest.vercel.app",
+			"type": "string"
+		},
+		{
+			"key": "localApi",
+			"value": "http://localhost:8000",
+			"type": "string"
+		}
+	]
+}
