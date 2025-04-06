@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 function Signup() {
     return (
@@ -61,17 +62,21 @@ function Signup() {
                         </svg>
                     </div>
                     <div className="mb-6 w-full text-center text-2xl font-semibold uppercase">Play</div>
-                    <label for="email"
-                        className="mb-1 inline-block text-gray-300">Email:</label><input id="email" type="email"
-                            placeholder="Enter your email" className="mb-4 rounded-lg border bg-transparent px-3 py-2" />
-                    <label for="password"
+                    <label htmlFor="Email"
+                        className="mb-1 inline-block text-gray-300">Email:</label><input id="Email" type="Email"
+                            placeholder="Enter your Email" className="mb-4 rounded-lg border bg-transparent px-3 py-2" />
+                    <label htmlFor="username"
+                        className="mb-1 inline-block text-gray-300">username:</label><input id="username" type="username"
+                            placeholder="Enter your username" className="mb-4 rounded-lg border bg-transparent px-3 py-2" />
+                    <label htmlFor="password"
                         className="mb-1 inline-block text-gray-300">password:</label><input id="password" type="password"
                             placeholder="Enter your password" className="mb-4 rounded-lg border bg-transparent px-3 py-2" />
-                    <label for="password"
+                    <label htmlFor="password"
                         className="mb-1 inline-block text-gray-300">Confirm password:</label><input id="password" type="password"
                             placeholder="Confirm password" className="mb-4 rounded-lg border bg-transparent px-3 py-2" />
                             <button
-                                className="bg-[#ae7aff] px-4 py-3 text-black">Sign up with Email</button>
+                                className="bg-[#ae7aff] px-4 py-3 text-black">Sign up</button>
+                                 <p className='my-5 text-gray-500'>Already have account ? <Link to={"/login"} className='text-blue-500 hover:underline'>Login</Link></p>
                 </div>
             </div>
         </>
