@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
-import { Login } from '../API/loginUser';
+import { Login, refreshToken } from '../API/loginUser'; 
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
 
@@ -13,6 +13,7 @@ function LoginComponent() {
     });
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
+    const [refreshInterval, setRefreshInterval] = useState(null);
 
     const handleOnChange = (e) => {
         const { name, value } = e.target;
@@ -20,6 +21,26 @@ function LoginComponent() {
             ...prev,
             [name]: value
         }));
+    };
+
+    const autoLogout = () => {
+        localStorage.clear();
+        toast.error("Session expired. Please log in again.");
+        navigate('/login');
+    };
+
+    const startAutoRefresh = () => {
+        const interval = setInterval(async () => {
+            try {
+                await refreshToken();
+                console.log("Token refreshed successfully");
+            } catch (error) {
+                console.error("Failed to refresh token:", error);
+                clearInterval(interval);
+                autoLogout();
+            }
+        }, 300000); // 5 minutes
+        setRefreshInterval(interval);
     };
 
     const handleSubmit = async (e) => {
@@ -31,22 +52,32 @@ function LoginComponent() {
         }
 
         try {
-            const response = await Login(data);
+            const response = await Login(data); // Call the Login API
             console.log('Login response:', response);
 
-            const token = response?.accessToken;
+            // Check if accessToken and refreshToken exist in response
+            if (response.accessToken && response.refreshToken) {
+                // Remove the old 'token' key if it exists
+                localStorage.removeItem('token'); // Remove the old token key
 
-            if (token) {
-                localStorage.setItem('token', token);
+                // Save only accessToken and refreshToken
+                localStorage.setItem('accessToken', response.accessToken); // Save accessToken
+                localStorage.setItem('refreshToken', response.refreshToken); // Save refreshToken
+
+                // Show success toast message
                 toast.success('Login successful!');
-                setTimeout(() => {
-                    navigate('/MyChanelEmptypg');
-                }, 1000); // Toast show hone ka time
+
+                // Start auto-refresh interval
+                startAutoRefresh();
+
+                // Redirect to the specified page
+                navigate('/MyChanelEmptypg');
             } else {
-                toast.error('Invalid username or password');
+                // If tokens are missing, show an error toast
+                toast.error('Login failed. Invalid response from server.');
             }
         } catch (error) {
-            console.error('Login error:', error.message);
+            console.error('Login error:', error);
             if (error.message === "Invalid username or password") {
                 toast.error("Invalid username or password");
             } else {
@@ -54,6 +85,14 @@ function LoginComponent() {
             }
         }
     };
+
+    useEffect(() => {
+        return () => {
+            if (refreshInterval) {
+                clearInterval(refreshInterval);
+            }
+        };
+    }, [refreshInterval]);
 
     return (
         <div className="h-screen overflow-y-auto bg-[#121212] text-white">
