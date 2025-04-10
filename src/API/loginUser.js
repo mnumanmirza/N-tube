@@ -3,6 +3,17 @@ import axios from "axios";
 // Create an Axios instance with a base URL
 const API = axios.create({ baseURL: process.env.REACT_APP_URI });
 
+// Helper function to format date as "YYYY-MM-DD HH:mm:ss"
+const formatDateTime = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+};
+
 // Refresh Token Function
 export const refreshToken = async () => {
     try {
@@ -12,9 +23,11 @@ export const refreshToken = async () => {
 
         console.log("Refresh Token Response:", response.data); // Debugging backend response
 
-        // Save the new tokens
+        // Save the new tokens and expiration time
+        const expirationTime = new Date(Date.now() + 5 * 60 * 1000); // 5 minutes from now
         localStorage.setItem('accessToken', response.data.accessToken); // Save accessToken
         localStorage.setItem('refreshToken', response.data.refreshToken); // Save refreshToken
+        localStorage.setItem('expiredAt', formatDateTime(expirationTime)); // Save expiration time in desired format
 
         return response.data.accessToken; // Return the new access token
     } catch (error) {
@@ -38,9 +51,11 @@ export const Login = async (credentials) => {
             throw new Error("No access or refresh token in response");
         }
 
-        // Save tokens in localStorage
+        // Save tokens and expiration time in localStorage
+        const expirationTime = new Date(Date.now() + 5 * 60 * 1000); // 5 minutes from now
         localStorage.setItem('accessToken', accessToken); // Save accessToken
         localStorage.setItem('refreshToken', refreshToken); // Save refreshToken
+        localStorage.setItem('expiredAt', formatDateTime(expirationTime)); // Save expiration time in desired format
 
         return { accessToken, refreshToken }; // Return tokens
     } catch (error) {

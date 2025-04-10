@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
-import { Login, refreshToken } from '../API/loginUser'; 
+import { Login } from '../API/loginUser'; 
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
 
@@ -29,17 +29,30 @@ function LoginComponent() {
         navigate('/login');
     };
 
-    const startAutoRefresh = () => {
-        const interval = setInterval(async () => {
-            try {
-                await refreshToken();
-                console.log("Token refreshed successfully");
-            } catch (error) {
-                console.error("Failed to refresh token:", error);
-                clearInterval(interval);
-                autoLogout();
-            }
-        }, 300000); // 5 minutes
+    // ✅ Updated function for GMT+5 ISO time
+    const getExpirationTimeISO = () => {
+        const now = new Date();
+        now.setMinutes(now.getMinutes() + 5); // Add 5 minutes
+
+        const timezoneOffset = -5 * 60; // GMT+5 in minutes (for Pakistan)
+        const localTime = new Date(now.getTime() - timezoneOffset * 60000);
+
+        // Format: YYYY-MM-DDTHH:mm:ss+05:00
+        const isoWithOffset = localTime.toISOString().split('.')[0] + '+05:00';
+        return isoWithOffset;
+    };
+
+    const checkTokenExpiration = () => {
+        const expiredAt = localStorage.getItem('expiredAt');
+        if (expiredAt && new Date() > new Date(expiredAt)) {
+            autoLogout();
+        }
+    };
+
+    const startAutoLogout = () => {
+        const interval = setInterval(() => {
+            checkTokenExpiration();
+        }, 30000); // every 30 seconds
         setRefreshInterval(interval);
     };
 
@@ -52,28 +65,21 @@ function LoginComponent() {
         }
 
         try {
-            const response = await Login(data); // Call the Login API
+            const response = await Login(data);
             console.log('Login response:', response);
 
-            // Check if accessToken and refreshToken exist in response
             if (response.accessToken && response.refreshToken) {
-                // Remove the old 'token' key if it exists
-                localStorage.removeItem('token'); // Remove the old token key
+                localStorage.removeItem('token'); // old token remove
 
-                // Save only accessToken and refreshToken
-                localStorage.setItem('accessToken', response.accessToken); // Save accessToken
-                localStorage.setItem('refreshToken', response.refreshToken); // Save refreshToken
+                const expirationTime = getExpirationTimeISO(); // GMT+5 formatted ISO
+                localStorage.setItem('accessToken', response.accessToken);
+                localStorage.setItem('refreshToken', response.refreshToken);
+                localStorage.setItem('expiredAt', expirationTime);
 
-                // Show success toast message
                 toast.success('Login successful!');
-
-                // Start auto-refresh interval
-                startAutoRefresh();
-
-                // Redirect to the specified page
+                startAutoLogout();
                 navigate('/MyChanelEmptypg');
             } else {
-                // If tokens are missing, show an error toast
                 toast.error('Login failed. Invalid response from server.');
             }
         } catch (error) {
@@ -87,19 +93,23 @@ function LoginComponent() {
     };
 
     useEffect(() => {
+        const expiredAt = localStorage.getItem('expiredAt');
+        if (expiredAt) {
+            checkTokenExpiration();
+            startAutoLogout();
+        }
+
         return () => {
             if (refreshInterval) {
                 clearInterval(refreshInterval);
             }
         };
-    }, [refreshInterval]);
+    }, []);
 
     return (
         <div className="h-screen overflow-y-auto bg-[#121212] text-white">
             <div className="mx-auto my-8 flex w-full max-w-sm flex-col px-4">
-                <div className="mx-auto inline-block w-16">
-                    {/* SVG Logo if needed */}
-                </div>
+                <div className="mx-auto inline-block w-16">{/* Logo */}</div>
                 <div className="mb-6 w-full text-center text-2xl font-semibold uppercase">Play</div>
                 <form className="mx-auto my-8 flex w-full max-w-sm flex-col px-4" onSubmit={handleSubmit}>
                     <div className="grid">
