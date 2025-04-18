@@ -31,7 +31,8 @@ function SideBar() {
                             <li className="hidden sm:block">
                                 <button
                                     className="flex flex-col items-center justify-center border-white py-1 focus:text-[#ae7aff] sm:w-full sm:flex-row sm:border sm:p-1.5 sm:hover:bg-[#ae7aff] sm:hover:text-black sm:focus:border-[#ae7aff] sm:focus:bg-[#ae7aff] sm:focus:text-black sm:group-hover:justify-start sm:group-hover:px-4 lg:justify-start lg:px-4">
-                                    <span
+                                    
+                                    <Link to="/LikeVideo"><span
                                         className="inline-block w-5 shrink-0 sm:group-hover:mr-4 lg:mr-4">
                                         {/* svg */}
                                         <svg style={{ width: '100%' }} viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -45,9 +46,10 @@ function SideBar() {
                                         </svg>
                                     </span>
                                     <span className="block sm:hidden sm:group-hover:inline">Liked
-                                        Videos</span></button></li>
+                                        Videos</span> </Link></button></li>
                             <li className=""><button
                                 className="flex flex-col items-center justify-center border-white py-1 focus:text-[#ae7aff] sm:w-full sm:flex-row sm:border sm:p-1.5 sm:hover:bg-[#ae7aff] sm:hover:text-black sm:focus:border-[#ae7aff] sm:focus:bg-[#ae7aff] sm:focus:text-black sm:group-hover:justify-start sm:group-hover:px-4 lg:justify-start lg:px-4">
+                               <Link to="/History">
                                 <span
                                     className="inline-block w-5 shrink-0 sm:group-hover:mr-4 lg:mr-4">
                                     {/* svg */}
@@ -61,7 +63,7 @@ function SideBar() {
                                         />
                                     </svg>
                                 </span>
-                                <span className="block sm:hidden sm:group-hover:inline">History</span>
+                                <span className="block sm:hidden sm:group-hover:inline">History</span></Link>
                             </button>
                             </li>
                             <li className="hidden sm:block"><button
@@ -92,6 +94,7 @@ function SideBar() {
                             </li>
                             <li className=""><button
                                 className="flex flex-col items-center justify-center border-white py-1 focus:text-[#ae7aff] sm:w-full sm:flex-row sm:border sm:p-1.5 sm:hover:bg-[#ae7aff] sm:hover:text-black sm:focus:border-[#ae7aff] sm:focus:bg-[#ae7aff] sm:focus:text-black sm:group-hover:justify-start sm:group-hover:px-4 lg:justify-start lg:px-4">
+                                 <Link to="/MyCollection">
                                 <span
                                     className="inline-block w-5 shrink-0 sm:group-hover:mr-4 lg:mr-4">
                                     {/* svg */}
@@ -105,11 +108,11 @@ function SideBar() {
                                         />
                                     </svg>
                                 </span>
-                                <span className="block sm:hidden sm:group-hover:inline">Collections</span></button>
+                                <span className="block sm:hidden sm:group-hover:inline">Collections</span></Link></button>
                             </li>
                             <li className=""><button
                                 className="flex flex-col items-center justify-center border-white py-1 focus:text-[#ae7aff] sm:w-full sm:flex-row sm:border sm:p-1.5 sm:hover:bg-[#ae7aff] sm:hover:text-black sm:focus:border-[#ae7aff] sm:focus:bg-[#ae7aff] sm:focus:text-black sm:group-hover:justify-start sm:group-hover:px-4 lg:justify-start lg:px-4">
-                                <Link to="ChanelSubscribeList">
+                                <Link to="/Subscribers">
                                     <span
                                         className="inline-block w-5 shrink-0 sm:group-hover:mr-4 lg:mr-4">
                                         {/* svg */}
