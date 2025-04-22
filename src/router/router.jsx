@@ -12,7 +12,6 @@ import App from "../App";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
-
 // Private Components
 import UploadVideopopup from "../pages/UploadVideopopup";
 import MyChanelEmptypg from "../Components/MyChanelEmptypg";
@@ -37,11 +36,11 @@ import UploadvideoSucessful from "../Components/UploadvideoSucessful";
 import VideoListPage from "../Components/VideoListPage";
 import PricvacyPolicypg from "../pages/PricvacyPolicypg";
 import TermsCondition from "../pages/TermsCondition";
-import VideoDetailpage from "../Components/VideoDetailpage";
 import LikeVideo from "../pages/LikeVideo";
 import History from "../pages/History";
 import MyCollection from "../pages/MyCollection";
 import Subscribers from "../pages/Subscibers";
+import VideoDetailspage from "../pages/VideoDetailspage";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +51,7 @@ const router = createBrowserRouter([
       { path: "", element: <Home /> },
       { path: "login", element: <Login /> },
       { path: "signup", element: <Signup /> },
+      { path: "watch/:id", element: <VideoDetailspage /> }, // ✅ Add VideoPage as a public route
 
       // ✅ Private Routes Wrapper
       {
@@ -93,7 +93,6 @@ const router = createBrowserRouter([
       // ✅ Public Pages accessible by everyone (even without login)
       { path: "PricvacyPolicypg", element: <PricvacyPolicypg /> },
       { path: "TermsCondition", element: <TermsCondition /> },
-      { path: "VideoDetailpage", element: <VideoDetailpage /> },
     ],
   },
 ]);
