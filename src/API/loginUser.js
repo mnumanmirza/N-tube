@@ -51,35 +51,3 @@ export const Login = async (credentials) => {
 
     return { accessToken, refreshToken };
 };
-
-// ✅ CURRENT USER
-export const GetCurrentUser = async () => {
-    const accessToken = localStorage.getItem("accessToken");
-    if (!accessToken) throw new Error("No token found. Please log in again.");
-
-    try {
-        const response = await API.get("/users/get-user", {
-            headers: { Authorization: `Bearer ${accessToken}` }
-        });
-        return response.data;
-    } catch (error) {
-        console.error("❌ Failed to get current user:", error?.response?.data?.message || error.message);
-        throw new Error("Failed to fetch user data. Please try again.");
-    }
-};
-
-// ✅ SINGLE VIDEO
-export const GetSingleVideo = async (videoId) => {
-    const accessToken = localStorage.getItem("accessToken");
-    if (!accessToken) throw new Error("No token found. Please log in again.");
-
-    try {
-        const response = await API.get(`/videos/get-single-video?videoId=${videoId}`, {
-            headers: { Authorization: `Bearer ${accessToken}` }
-        });
-        return response.data;
-    } catch (error) {
-        console.error("❌ Failed to get video:", error?.response?.data?.message || error.message);
-        throw new Error("Failed to fetch video. Please try again.");
-    }
-};

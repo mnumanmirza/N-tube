@@ -13,8 +13,8 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 // Private Components
+import MyContent from "../pages/MyContent";
 import UploadVideopopup from "../pages/UploadVideopopup";
-import MyChanelEmptypg from "../Components/MyChanelEmptypg";
 import ChanelPlaylistpg from "../Components/ChanelPlaylistpg";
 import Mychaneltweetpg from "../Components/Mychaneltweetpg";
 import ChanelSubscribeList from "../Components/ChanelSubscribeList";
@@ -63,8 +63,8 @@ const router = createBrowserRouter([
           { path: "Subscribers", element: <Subscribers /> },
           { path: "UploadVideopopup", element: <UploadVideopopup /> },
           {
-            path: "MyChanelEmptypg",
-            element: <MyChanelEmptypg />,
+            path: "MyContent",
+            element: <MyContent/>,
             children: [
               { path: "ChanelSubscribeList", element: <ChanelSubscribeList /> },
             ],

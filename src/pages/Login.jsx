@@ -48,7 +48,7 @@ function LoginComponent() {
             const success = await handleLogin(data);
             if (success) {
                 toast.success('Login successful!');
-                navigate('/MyChanelEmptypg');
+                navigate('/MyContent');
             }
         } catch (error) {
             if (error.message === "Invalid username or password") {

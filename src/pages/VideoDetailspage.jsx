@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getAllVideos } from '../API/getAllVideos';
+import SideBar from "../Components/SideBar"; // Corrected import path
 
 const VideoDetailpage = () => {
   const { id } = useParams();
@@ -60,6 +61,7 @@ const VideoDetailpage = () => {
 
   return (
     <>
+     <SideBar/>
       {/* Preload images */}
       <link rel="preload" as="image" href="https://images.pexels.com/photos/18264716/pexels-photo-18264716/free-photo-of-man-people-laptop-internet.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
       

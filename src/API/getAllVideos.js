@@ -1,16 +1,17 @@
 import axios from 'axios';
 
+// Use the REACT_APP_URI from the .env file
 const API = axios.create({
-  baseURL: 'https://dev-api-tubetest.vercel.app', // ✅ Correct base URL
+  baseURL: process.env.REACT_APP_URI, // Dynamically use the base URL from .env
 });
 
 export const getAllVideos = async () => {
   try {
-    const token = localStorage.getItem('accessToken'); // ✅ Get real token from storage
+    const token = localStorage.getItem('accessToken'); // Get the token from localStorage
 
     const response = await API.get('/videos/get-all-videos', {
       headers: {
-        Authorization: `Bearer ${token}`, // ✅ Use real token
+        Authorization: `Bearer ${token}`, // Pass the token in the Authorization header
       },
     });
 
