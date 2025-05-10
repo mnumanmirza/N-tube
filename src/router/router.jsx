@@ -1,24 +1,13 @@
-// ✅ Step 1: Create AuthCheck (wrapper for Private Routes)
-import { Navigate, Outlet } from "react-router-dom";
-
-const PrivateRoute = () => {
-  const isAuthenticated = !!localStorage.getItem("accessToken");
-  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
-};
-
-// ✅ Step 2: Setup Router
-import { createBrowserRouter } from "react-router-dom";
+import { Navigate, Outlet, createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
-// Private Components
 import MyContent from "../pages/MyContent";
 import UploadVideopopup from "../pages/UploadVideopopup";
 import ChanelPlaylistpg from "../Components/ChanelPlaylistpg";
 import Mychaneltweetpg from "../Components/Mychaneltweetpg";
 import ChanelSubscribeList from "../Components/ChanelSubscribeList";
-import Editpersonalinfo from "../Components/Editpersonalinfo";
 import Editchanelinfopg from "../Components/Editchanelinfopg";
 import Changepasswordpg from "../Components/Changepasswordpg";
 import AdminDashboardpg from "../Components/AdminDashboardpg";
@@ -41,19 +30,26 @@ import History from "../pages/History";
 import MyCollection from "../pages/MyCollection";
 import Subscribers from "../pages/Subscibers";
 import VideoDetailspage from "../pages/VideoDetailspage";
+import Editpersonalinfo from "../pages/Editpersonalinfo.Jsx";
+import ChangePassword from "../pages/ChangePassword"; // Add this import
+
+const PrivateRoute = () => {
+  const isAuthenticated = !!localStorage.getItem("accessToken");
+  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
+};
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
-      // ✅ Public Routes
+      // Public Routes
       { path: "", element: <Home /> },
       { path: "login", element: <Login /> },
       { path: "signup", element: <Signup /> },
-      { path: "watch/:id", element: <VideoDetailspage /> }, // ✅ Add VideoPage as a public route
+      { path: "watch/:id", element: <VideoDetailspage /> },
+      { path: "change-password", element: <ChangePassword /> }, // ✅ New Route
 
-      // ✅ Private Routes Wrapper
       {
         element: <PrivateRoute />,
         children: [
@@ -64,7 +60,7 @@ const router = createBrowserRouter([
           { path: "UploadVideopopup", element: <UploadVideopopup /> },
           {
             path: "MyContent",
-            element: <MyContent/>,
+            element: <MyContent />,
             children: [
               { path: "ChanelSubscribeList", element: <ChanelSubscribeList /> },
             ],
@@ -90,7 +86,6 @@ const router = createBrowserRouter([
         ],
       },
 
-      // ✅ Public Pages accessible by everyone (even without login)
       { path: "PricvacyPolicypg", element: <PricvacyPolicypg /> },
       { path: "TermsCondition", element: <TermsCondition /> },
     ],

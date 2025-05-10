@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import SideBar from '../Components/SideBar';
-import { getCurrentUser } from '../API/getCurrentUser';
+import { getCurrentUser } from '../API/users/getCurrentUser';
 
 function MyContent() {
   const [user, setUser] = useState(null);

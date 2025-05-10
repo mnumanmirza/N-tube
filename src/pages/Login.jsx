@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
-import { Login } from '../api/loginUser'; // ✅ Correct path
-import { startAutoTokenRefresh } from '../API/refreshTokenAPI'; // ✅ Correct path
+import { Login } from '../API/users/loginUser'; // Correct path
+import { startAutoTokenRefresh } from '../API/users/refreshTokenAPI'; // Correct path
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
 
@@ -17,23 +17,33 @@ function LoginComponent() {
         setData(prev => ({ ...prev, [name]: value }));
     };
 
-    // ✅ Separate login handler
     const handleLogin = async (credentials) => {
-        const response = await Login(credentials);
+        try {
+            const response = await Login(credentials);
 
-        if (response.accessToken && response.refreshToken) {
-            const expirationTime = new Date(Date.now() + 5 * 60 * 1000);
-            const isoWithOffset = expirationTime.toISOString().split('.')[0] + "+05:00";
+            if (response.accessToken && response.refreshToken) {
+                const expirationTime = new Date(Date.now() + 5 * 60 * 1000);
+                const isoWithOffset = expirationTime.toISOString().split('.')[0] + "+05:00";
 
-            localStorage.setItem('accessToken', response.accessToken);
-            localStorage.setItem('refreshToken', response.refreshToken);
-            localStorage.setItem('expiredAt', isoWithOffset);
+                localStorage.setItem('accessToken', response.accessToken);
+                localStorage.setItem('refreshToken', response.refreshToken);
+                localStorage.setItem('expiredAt', isoWithOffset);
 
-            startAutoTokenRefresh(); // ✅ Start auto-refresh
-            return true;
+                startAutoTokenRefresh();
+                toast.success('Login successful!');
+                return true;
+            }
+
+            throw new Error("Login failed. Invalid response from server.");
+        } catch (error) {
+            console.error("❌ Login Error:", error);
+            if (error.response?.data?.message) {
+                toast.error(error.response.data.message);
+            } else {
+                toast.error("Something went wrong, please try again.");
+            }
+            return false;
         }
-
-        throw new Error("Login failed. Invalid response from server.");
     };
 
     const handleSubmit = async (e) => {
@@ -44,18 +54,9 @@ function LoginComponent() {
             return;
         }
 
-        try {
-            const success = await handleLogin(data);
-            if (success) {
-                toast.success('Login successful!');
-                navigate('/MyContent');
-            }
-        } catch (error) {
-            if (error.message === "Invalid username or password") {
-                toast.error("Invalid username or password");
-            } else {
-                toast.error("Something went wrong, please try again.");
-            }
+        const success = await handleLogin(data);
+        if (success) {
+            navigate('/MyContent');
         }
     };
 
@@ -100,13 +101,14 @@ function LoginComponent() {
                         Login
                     </button>
 
-                    <div className="mt-4 text-center">
-                        <span className="text-gray-500">Don't have an account? </span>
+                    <div className="mt-4 text-center flex flex-col gap-2">
+                        <span className="text-gray-500">Don't have an account?</span>
                         <Link to="/signup" className="text-blue-500 hover:underline">Register</Link>
+                        <Link to="/change-password" className="text-blue-500 hover:underline">Forgot password?</Link>
                     </div>
                 </form>
             </div>
-            <ToastContainer />
+            <ToastContainer position="top-center" />
         </div>
     );
 }

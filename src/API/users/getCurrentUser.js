@@ -1,12 +1,13 @@
-import API from './api';
+import axios from 'axios';
+import API from '../users/api';
 
 export const getCurrentUser = async () => {
   try {
     const response = await API.get('/users/get-user');
-    
-    // ✅ API response structure کے مطابق ڈیٹا نکالیں
+
+    // Extract user data from the response
     const userData = response.data.data;
-    
+
     if (!userData) {
       throw new Error('User data not found in response');
     }
@@ -20,14 +21,14 @@ export const getCurrentUser = async () => {
         avatar: userData.avatar,
         coverImage: userData.coverImage,
         email: userData.email,
-        createdAt: userData.createdAt
-      }
+        createdAt: userData.createdAt,
+      },
     };
   } catch (error) {
     console.error('❌ User fetch error:', error.response?.data || error.message);
     return {
       success: false,
-      error: error.response?.data?.message || 'Failed to load user data'
+      error: error.response?.data?.message || 'Failed to load user data',
     };
   }
 };

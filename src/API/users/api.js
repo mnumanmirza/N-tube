@@ -13,6 +13,19 @@ API.interceptors.request.use((config) => {
     }
     return config;
 });
+// src/services/api.js
+// Mock implementation of the updateAccountDetail API
+
+export async function updateAccountDetail(data) {
+  // Simulate API delay with a Promise
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      // For this mock, we just resolve with a success response
+      resolve({ success: true });
+    }, 1000);
+  });
+}
+
 
 API.interceptors.response.use(
     (response) => response,
@@ -30,9 +43,10 @@ API.interceptors.response.use(
                 originalRequest.headers.Authorization = `Bearer ${newTokens.accessToken}`;
                 return API(originalRequest);
             } catch (err) {
-                console.error("❌ Refresh token failed in interceptor. Logging out...");
+                console.error("❌ Refresh token failed in interceptor. Logging out...", err);
                 localStorage.clear();
                 window.location.href = "/login";
+                return Promise.reject(err); // Properly reject the promise with the error
             }
         }
 

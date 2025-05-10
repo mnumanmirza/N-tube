@@ -1,4 +1,4 @@
-import API from "./api";
+import API from "../users/api";
 import { startAutoTokenRefresh } from "./refreshTokenAPI";
 
 export const Login = async (credentials) => {
