@@ -11,7 +11,9 @@ const Home = () => {
   const fetchVideos = async () => {
     try {
       const res = await getAllVideos();
-      setVideos(res.data.docs);
+      // Filter videos to include only those with isPublished: true
+      const publishedVideos = res.data.docs.filter((video) => video.isPublished === true);
+      setVideos(publishedVideos);
     } catch (error) {
       console.error('Error fetching videos:', error.message);
     } finally {
@@ -33,7 +35,7 @@ const Home = () => {
           <div
             key={video._id}
             className="bg-gray-800 shadow-lg rounded-2xl overflow-hidden transition duration-300 hover:shadow-2xl cursor-pointer"
-            onClick={() => navigate(`/watch/${video._id}`)} // Correct route
+            onClick={() => navigate(`/watch/${video._id}`)}
           >
             <img
               src={video.thumbnail || 'https://via.placeholder.com/300'}

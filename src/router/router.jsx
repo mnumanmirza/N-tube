@@ -5,6 +5,7 @@ import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import MyContent from "../pages/MyContent";
 import UploadVideopopup from "../pages/UploadVideopopup";
+import UnpublishedPlaylist from "../pages/UnpublishedPlaylist"; // Import the component
 import ChanelPlaylistpg from "../Components/ChanelPlaylistpg";
 import Mychaneltweetpg from "../Components/Mychaneltweetpg";
 import ChanelSubscribeList from "../Components/ChanelSubscribeList";
@@ -31,7 +32,7 @@ import MyCollection from "../pages/MyCollection";
 import Subscribers from "../pages/Subscibers";
 import VideoDetailspage from "../pages/VideoDetailspage";
 import Editpersonalinfo from "../pages/Editpersonalinfo.Jsx";
-import ChangePassword from "../pages/ChangePassword"; // Add this import
+import ChangePassword from "../pages/ChangePassword";
 
 const PrivateRoute = () => {
   const isAuthenticated = !!localStorage.getItem("accessToken");
@@ -48,7 +49,8 @@ const router = createBrowserRouter([
       { path: "login", element: <Login /> },
       { path: "signup", element: <Signup /> },
       { path: "watch/:id", element: <VideoDetailspage /> },
-      { path: "change-password", element: <ChangePassword /> }, // ✅ New Route
+      { path: "change-password", element: <ChangePassword /> },
+      { path: "unpublished-playlist", element: <UnpublishedPlaylist /> }, // Add the route here
 
       {
         element: <PrivateRoute />,

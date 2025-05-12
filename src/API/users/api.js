@@ -5,6 +5,14 @@ import { refreshTokenAPI } from "./refreshTokenAPI";
 const BASE_URL = "https://dev-api-tubetest.vercel.app";
 
 const API = axios.create({ baseURL: BASE_URL });
+const BaseApi = process.env.REACT_APP_URI;
+
+const api = axios.create({
+  baseURL: BaseApi,
+  withCredentials: true, // اگر cookies یا auth headers بھیجنے ہوں
+});
+
+export { api, BaseApi };
 
 API.interceptors.request.use((config) => {
     const token = localStorage.getItem("accessToken");
