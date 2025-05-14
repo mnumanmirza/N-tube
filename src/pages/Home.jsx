@@ -6,14 +6,19 @@ import SideBar from '../Components/SideBar';
 const Home = () => {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
   const navigate = useNavigate();
 
-  const fetchVideos = async () => {
+  const fetchVideos = async (pageNum = 1) => {
     try {
-      const res = await getAllVideos();
-      // Filter videos to include only those with isPublished: true
+      setLoading(true);
+      // Pass page number to API
+      const res = await getAllVideos(pageNum);
+      // Filter only published videos
       const publishedVideos = res.data.docs.filter((video) => video.isPublished === true);
-      setVideos(publishedVideos);
+      setVideos((prev) => pageNum === 1 ? publishedVideos : [...prev, ...publishedVideos]);
+      setHasMore(pageNum < res.data.totalPages);
     } catch (error) {
       console.error('Error fetching videos:', error.message);
     } finally {
@@ -22,10 +27,11 @@ const Home = () => {
   };
 
   useEffect(() => {
-    fetchVideos();
-  }, []);
+    fetchVideos(page);
+    // eslint-disable-next-line
+  }, [page]);
 
-  if (loading) return <div className="text-center mt-10 text-lg">Loading videos...</div>;
+  if (loading && page === 1) return <div className="text-center mt-10 text-lg">Loading videos...</div>;
 
   return (
     <>
@@ -51,6 +57,17 @@ const Home = () => {
           </div>
         ))}
       </div>
+      {hasMore && (
+        <div className="text-center my-6">
+          <button
+            onClick={() => setPage((prev) => prev + 1)}
+            className="px-6 py-2 bg-blue-600 rounded hover:bg-blue-700 text-white text-sm"
+            disabled={loading}
+          >
+            {loading ? 'Loading...' : 'Load More'}
+          </button>
+        </div>
+      )}
     </>
   );
 };

@@ -1,23 +1,38 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getAllVideos } from '../API/getAllVideos';
-import SideBar from "../Components/SideBar"; // Corrected import path
+import SideBar from "../Components/SideBar";
 
 const VideoDetailpage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [video, setVideo] = useState(null);
   const [suggestedVideos, setSuggestedVideos] = useState([]);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [likes, setLikes] = useState(0);
   const [dislikes, setDislikes] = useState(0);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
 
+  // Fetch videos with paging, and keep appending for suggestions
   useEffect(() => {
     const fetchVideoData = async () => {
       try {
-        const res = await getAllVideos();
-        const allVideos = res.data.docs;
+        let allVideos = [];
+        let currentPage = 1;
+        let totalPages = 1;
+        // Loop to fetch all pages until current video is found
+        do {
+          const res = await getAllVideos(currentPage, 10);
+          const docs = res.data.docs;
+          allVideos = [...allVideos, ...docs];
+          totalPages = res.data.totalPages;
+          if (docs.some((v) => v._id === id)) break;
+          currentPage++;
+        } while (currentPage <= totalPages);
+
         const current = allVideos.find((v) => v._id === id);
         const suggested = allVideos.filter((v) => v._id !== id);
 
@@ -26,6 +41,8 @@ const VideoDetailpage = () => {
         setLikes(current?.likes || 0);
         setDislikes(current?.dislikes || 0);
         setComments(current?.comments || []);
+        setHasMore(currentPage < totalPages);
+        setPage(currentPage);
       } catch (error) {
         console.error('Error fetching videos:', error);
       }
@@ -33,6 +50,20 @@ const VideoDetailpage = () => {
 
     fetchVideoData();
   }, [id]);
+
+  // Load more suggestions
+  const handleLoadMore = async () => {
+    try {
+      const nextPage = page + 1;
+      const res = await getAllVideos(nextPage, 10);
+      const newVideos = res.data.docs.filter((v) => v._id !== id);
+      setSuggestedVideos((prev) => [...prev, ...newVideos]);
+      setHasMore(nextPage < res.data.totalPages);
+      setPage(nextPage);
+    } catch (error) {
+      // handle error
+    }
+  };
 
   const handleCommentSubmit = (e) => {
     e.preventDefault();
@@ -54,17 +85,13 @@ const VideoDetailpage = () => {
   };
 
   if (!video) return <div className="p-4 text-white">Loading video...</div>;
-
   if (!video.videoFile) {
     return <div className="p-4 text-white">Video URL is missing or invalid. Please try again later.</div>;
   }
 
   return (
     <>
-     <SideBar/>
-      {/* Preload images */}
-      <link rel="preload" as="image" href="https://images.pexels.com/photos/18264716/pexels-photo-18264716/free-photo-of-man-people-laptop-internet.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
-      
+      <SideBar />
       <div className="bg-[#121212] text-white">
         <div className="flex min-h-[calc(100vh-66px)] sm:min-h-[calc(100vh-82px)]">
           <section className="w-full pb-[70px] sm:ml-[70px] sm:pb-0">
@@ -106,7 +133,7 @@ const VideoDetailpage = () => {
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
-                                viewBox="0 0 24 24"
+                                viewBox="0  0 24 24"
                                 strokeWidth={1.5}
                                 stroke="currentColor"
                               >
@@ -247,7 +274,7 @@ const VideoDetailpage = () => {
                   <div 
                     key={vid._id} 
                     className="w-full gap-x-2 border pr-2 md:flex cursor-pointer"
-                    onClick={() => window.location.href = `/watch/${vid._id}`}
+                    onClick={() => navigate(`/watch/${vid._id}`)}
                   >
                     <div className="relative mb-2 w-full md:mb-0 md:w-5/12">
                       <div className="w-full pt-[56%]">
@@ -274,6 +301,17 @@ const VideoDetailpage = () => {
                     </div>
                   </div>
                 ))}
+                {hasMore && (
+                  <div className="text-center my-6">
+                    <button
+                      onClick={handleLoadMore}
+                      className="px-6 py-2 bg-blue-600 rounded hover:bg-blue-700 text-white text-sm"
+                      disabled={!hasMore}
+                    >
+                      Load More
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </section>
